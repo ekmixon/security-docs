@@ -32,6 +32,11 @@ for rule_file in ruleFiles:
 
 rule_dict = sorted(rule_dict, key=sort_by_name)
 
-rule_dump = ROOT.joinpath("prebuilt-rules-scripts", "orig-rules-json-files",  releaseVersion + "-prebuilt-rule.json")
+rule_dump = ROOT.joinpath(
+    "prebuilt-rules-scripts",
+    "orig-rules-json-files",
+    f"{releaseVersion}-prebuilt-rule.json",
+)
+
 with open(rule_dump, "w") as fp:
     json.dump(rule_dict, fp, indent=2)

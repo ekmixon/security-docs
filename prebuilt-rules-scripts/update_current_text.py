@@ -12,13 +12,21 @@ def sort_by_name(rule):
 
 
 # Path to latest prebuilt rules JSON file
-rule_dump = ROOT.joinpath("prebuilt-rules-scripts", "orig-rules-json-files",  releaseVersion + "-prebuilt-rule.json")
+rule_dump = ROOT.joinpath(
+    "prebuilt-rules-scripts",
+    "orig-rules-json-files",
+    f"{releaseVersion}-prebuilt-rule.json",
+)
+
 with open(rule_dump, "r") as source:
     currentText = json.load(source)
 
 # Path to JSON file generated from existing documentation
 
-diff_file = ROOT.joinpath("prebuilt-rules-scripts/diff-files/gen-files/json-from-docs-" + releaseVersion + ".json")
+diff_file = ROOT.joinpath(
+    f"prebuilt-rules-scripts/diff-files/gen-files/json-from-docs-{releaseVersion}.json"
+)
+
 with open(diff_file, "r") as source:
     updatedText = json.load(source)
 

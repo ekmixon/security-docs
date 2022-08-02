@@ -96,7 +96,7 @@ def _translate_interval_period(interval):
         length = runtime[0]
         if length == "1":
             units = units[:-1]
-    return str(length + " " + units)
+    return str(f"{length} {units}")
 
 
 def _left_align(text):
@@ -280,9 +280,7 @@ def get_rule_diff(package_version):
                 if old_rule['version'] != new_rule['version']:
                     new_rule['last_update'] = package_version
                     if 'changelog' not in new_rule:
-                        new_rule['changelog'] = {}
-                        new_rule['changelog']['changes'] = []
-
+                        new_rule['changelog'] = {'changes': []}
                     if 'query' in new_rule:
                         if old_rule['query'] != new_rule['query']:
                             new_rule['changelog']['changes'].append({
@@ -292,7 +290,7 @@ def get_rule_diff(package_version):
                                 "doc_text": "Updated query.",
                                 "pre_name": old_name
                                 })
-                        elif old_rule['query'] == new_rule['query']:
+                        else:
                             new_rule['changelog']['changes'].append({
                                 "version": new_rule['version'],
                                 "updated": new_rule['last_update'],

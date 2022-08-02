@@ -17,7 +17,10 @@ def sort_by_name(rule):
 
 
 # Path to the JSON rule file generated for this release
-diff_file = ROOT.joinpath("prebuilt-rules-scripts/diff-files/gen-files/json-from-docs-" + releaseVersion + ".json")
+diff_file = ROOT.joinpath(
+    f"prebuilt-rules-scripts/diff-files/gen-files/json-from-docs-{releaseVersion}.json"
+)
+
 with open(diff_file, 'r') as source:
     lasted_rules_dict = json.load(source)
 
@@ -26,9 +29,9 @@ prev_final = ROOT.joinpath("prebuilt-rules-scripts/diff-files/final-files/final-
                            previousReleaseVersion + ".json")
 with open(prev_final, 'r') as source:
     previous_rules_dict = json.load(source)
-    
+
 diff_dict = []
-    
+
 lasted_rules_dict = sorted(lasted_rules_dict, key=sort_by_name)
 
 previous_rules_dict = sorted(previous_rules_dict, key=sort_by_name)
@@ -36,7 +39,7 @@ previous_rules_dict = sorted(previous_rules_dict, key=sort_by_name)
 # oldRuleNames = []
 # newRuleNames = []
 oldName = None
-counter = 0 
+counter = 0
 ruleFound = False
 for new_rule in lasted_rules_dict:
     # if new_rule['name'] not in newRuleNames:
@@ -53,8 +56,7 @@ for new_rule in lasted_rules_dict:
             if old_rule['version'] != new_rule['version']:
                 new_rule['last_update'] = releaseVersion
                 if 'changelog' not in new_rule:
-                    new_rule['changelog'] = {}
-                    new_rule['changelog']['changes'] = []
+                    new_rule['changelog'] = {'changes': []}
                 if 'query' in new_rule:
                     if old_rule['query'] != new_rule['query']:
                         new_rule['changelog']['changes'].append({"version": new_rule['version'], "updated": new_rule['last_update'], "pre_query": old_rule['query'], "doc_text": "Updated query.", "pre_name": oldName})
@@ -77,6 +79,9 @@ for new_rule in lasted_rules_dict:
 
 # Outputs the final JSON file from which the documentation is generated. Note
 # that this file is needed for the next release to compare future changes.
-final = ROOT.joinpath("prebuilt-rules-scripts/diff-files/final-files/final-rule-file-" + releaseVersion + ".json")
+final = ROOT.joinpath(
+    f"prebuilt-rules-scripts/diff-files/final-files/final-rule-file-{releaseVersion}.json"
+)
+
 with open(final, "w") as fp:
     json.dump(diff_dict, fp, indent=2)

@@ -17,7 +17,7 @@ def sort_by_name(rule):
 docSourcePath = ROOT.joinpath('docs', 'detections', 'prebuilt-rules', 'rule-details')
 
 rule_dict = []
-    
+
 files = docSourcePath.glob("*.asciidoc")
 
 name = ""
@@ -95,6 +95,9 @@ for file in files:
 
 rule_dict = sorted(rule_dict, key=sort_by_name)
 
-diff_file = ROOT.joinpath("prebuilt-rules-scripts/diff-files/gen-files/json-from-docs-" + releaseVersion + ".json")
+diff_file = ROOT.joinpath(
+    f"prebuilt-rules-scripts/diff-files/gen-files/json-from-docs-{releaseVersion}.json"
+)
+
 with open(diff_file, "w") as fp:
     json.dump(rule_dict, fp, indent=2)

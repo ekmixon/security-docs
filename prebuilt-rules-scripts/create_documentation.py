@@ -51,7 +51,7 @@ def translate_interval_period(interval):
         length = runtime[0]
         if length == "1":
             units = units[:-1]
-    return str(length + " " + units)
+    return str(f"{length} {units}")
 
 
 # Formats text using asciidoc syntax
